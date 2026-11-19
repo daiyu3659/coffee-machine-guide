@@ -32,7 +32,7 @@ assets/three.module.js  Three.js r149
 
 ## 授权说明
 
-本项目的**代码与文档**（`index.html`、`assets/app.js`、`assets/style.css`、`assets/loaders/`、`assets/utils/` 中的代码，以及本 README、`素材清单与可行性结论.md` 等文字内容）以 **Creative Commons Attribution-NonCommercial 4.0 International（CC BY-NC 4.0）** 发布，署名：**2026 daiyu3659**。
+本项目的**代码与文档**（`index.html`、`assets/app.js`、`assets/style.css`、`assets/loaders/`、`assets/utils/` 中的代码，以及本 README 等文字内容）以 **Creative Commons Attribution-NonCommercial 4.0 International（CC BY-NC 4.0）** 发布，署名：**2026 daiyu3659**。
 
 - 允许：复制、分发、修改、基于本项目再创作、再发布。
 - 必须：署名（2026 daiyu3659）并注明是否修改；附上许可证链接。
@@ -46,8 +46,8 @@ assets/three.module.js  Three.js r149
 - 这些素材**不适用**本仓库的 CC BY-NC 4.0 授权，也不随本项目一并授权。
 - 不得将其用于任何商业用途，不得二次分发用于与本演示无关的场景。
 - 如需商用，请自行向 De'Longhi 取得授权，或将其替换为自有/已获授权的素材。
-- 逐条来源与页面链接见 [素材清单与可行性结论.md](./素材清单与可行性结论.md)。
+- 逐条来源与页面链接见本地维护的《素材清单与可行性结论》，该清单不随仓库发布。
 
-为了控制仓库体积，`assets/ref/`（参考图与说明书 PDF，约 4 MB）**不纳入版本库**，仅保留在本地作为核对依据；仓库中只包含页面运行所需的文件。因此克隆仓库后 `assets/ref/` 为空属于正常现象，不影响页面运行。
+为了控制仓库体积，`assets/ref/`（参考图与说明书 PDF，约 4 MB）与本地维护的《素材清单与可行性结论》**均不纳入版本库**，仅保留在本地作为核对依据；仓库中只包含页面运行所需的文件。因此克隆仓库后 `assets/ref/` 为空属于正常现象，不影响页面运行。
 
 本原型中的三维模型为按公开尺寸与参考图重建的程序化几何，仅作形态与交互验证，不代表真实产品的精确外观。
