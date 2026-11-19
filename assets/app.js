@@ -1042,6 +1042,8 @@ let baseDist = 1;
 let zoomFactor = 1;
 let targetZoom = 1;
 let manualView = false;   // 用户手动调过视角后，切步骤只做收敛式微调
+let panelCollapsed = false;   // 移动端：步骤面板整块收起，机身为视觉主体
+const isNarrow = () => window.matchMedia('(max-width: 820px), (max-height: 520px)').matches;
 const homeDir = new THREE.Vector3(0.52, 0.30, 1).normalize();
 
 // 由“相机所在方向”构造正立朝向：与药盒项目一致，屏幕内滚转一并归零
@@ -1077,6 +1079,11 @@ for (let i = 0; i < 8; i++) {
   ));
 }
 
+// 取景留白：收起步骤面板时机器可以更贴近屏幕边缘，成为视觉主体
+function fitMargin() {
+  return isNarrow() && panelCollapsed ? 0.97 : 0.90;
+}
+
 // 依据真实投影迭代取景距离：任意朝向、任意屏幕内旋转都能完整容纳盒体
 function fitDistance(q, roll) {
   const vFov = camera.fov * Math.PI / 180;
@@ -1099,7 +1106,7 @@ function fitDistance(q, roll) {
       m = Math.max(m, Math.abs(p.x), Math.abs(p.y));
     }
     if (m < 0.001) break;
-    d *= m / 0.84;
+    d *= m / fitMargin();
   }
   return d;
 }
@@ -1465,8 +1472,26 @@ STEPS.forEach((s, i) => {
   b.type = 'button';
   b.className = 'step';
   b.innerHTML = '<span class="n">' + String(i + 1).padStart(2, '0') + '</span><span>' + s.t + '</span><em>' + s.s + '</em>';
-  b.addEventListener('click', () => gotoStep(i));
+  b.addEventListener('click', () => {
+    // 移动端：再点一次当前步骤（如 01）＝ 收起整块面板，而不是重复切到本步
+    if (isNarrow() && i === stepIdx && !panelCollapsed) { setPanelCollapsed(true); return; }
+    if (panelCollapsed) setPanelCollapsed(false);
+    gotoStep(i);
+  });
   stepsEl.appendChild(b);
+});
+
+/* 移动端步骤面板整块收起：只留一条标题窄条，点窄条再展开 */
+const leftbarEl = document.getElementById('leftbar');
+const detailEl = document.getElementById('detail');
+function setPanelCollapsed(v) {
+  panelCollapsed = !!v && isNarrow();
+  leftbarEl.classList.toggle('collapsed', panelCollapsed);
+  detailEl.setAttribute('aria-expanded', panelCollapsed ? 'false' : 'true');
+  baseDist = fitDistanceAny();
+}
+detailEl.addEventListener('click', () => {
+  if (panelCollapsed) setPanelCollapsed(false);
 });
 
 /* 窗口偏矮时步骤列表会在左栏内滚动，给一个淡出提示表示还有内容 */
@@ -1779,6 +1804,7 @@ function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  if (!isNarrow() && panelCollapsed) setPanelCollapsed(false);   // 转回宽屏时恢复步骤面板
   baseDist = fitDistanceAny();
   resizeVC();
 }
@@ -1913,7 +1939,7 @@ function setMirror(open) {
 mirrorToggle.addEventListener('click', () => {
   setMirror(mirrorEl.classList.contains('collapsed'));
 });
-setMirror(window.innerWidth > 820);
+setMirror(!isNarrow());
 
 /* loader fade */
 setTimeout(() => {
