@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>De'Longhi ECAM350.55 · 三维操作指南（技术验证）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="stage"></div>
+
+<div id="ui">
+  <header class="hud-head">
+    <div class="brand">De'Longhi <span>ECAM350.55.B</span></div>
+    <h1>Dinamica 三维操作指南</h1>
+    <p class="sub">技术可行性验证 · 非官方资料</p>
+  </header>
+
+  <div id="leftbar">
+    <nav id="steps" aria-label="操作步骤"></nav>
+
+    <section id="detail">
+      <div class="step-no"><span id="stepIdx">01</span><i></i><em id="stepTotal">07</em></div>
+      <h2 id="stepTitle"></h2>
+      <p id="stepDesc"></p>
+      <div id="stepFeed" class="feed" aria-live="polite"></div>
+      <div id="tasks" class="tasks"></div>
+      <div class="note"><b>注意</b><span id="stepNote"></span></div>
+    </section>
+  </div>
+
+  <div id="parts">
+    <button class="chip" id="chipLid" type="button"><i class="dot"></i>豆仓盖</button>
+    <button class="chip" id="chipCarafe" type="button"><i class="dot"></i>奶壶</button>
+    <button class="chip" id="chipTray" type="button"><i class="dot"></i>滴水盘</button>
+    <button class="chip" id="chipGrounds" type="button"><i class="dot"></i>豆渣盒</button>
+    <button class="chip" id="chipTank" type="button"><i class="dot"></i>水箱</button>
+  </div>
+
+  <div class="hint">拖拽旋转 · 滚轮缩放 · 点击按钮与可动件</div>
+  <div class="badge"><b>PROTOTYPE</b>素材仅作比例核对</div>
+</div>
+
+<div id="vc-dock">
+  <div id="viewcube"><canvas id="vc-canvas"></canvas></div>
+  <div id="vc-bar">
+    <button class="vc-btn" id="vc-left" type="button" title="屏幕内左转 90°" aria-label="向左旋转 90 度">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>
+    </button>
+    <button id="vc-reset" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+      复位
+    </button>
+    <button class="vc-btn" id="vc-right" type="button" title="屏幕内右转 90°" aria-label="向右旋转 90 度">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg>
+    </button>
+  </div>
+</div>
+
+<aside id="mirror" aria-label="机器屏幕模拟">
+  <div class="mirror-head"><span>机器屏幕</span><b>LIVE</b></div>
+  <canvas id="mirrorCanvas" width="768" height="456"></canvas>
+  <div class="mirror-foot">按键实时驱动 · 非实机截图</div>
+</aside>
+<button id="mirrorToggle" type="button" aria-expanded="true">屏幕</button>
+
+<div id="tip" role="tooltip" aria-hidden="true">
+  <b id="tipName"></b>
+  <span id="tipDesc"></span>
+  <button id="tipAct" type="button">按下此键</button>
+</div>
+
+<div id="loader"><span></span>正在构建模型…</div>
+
+<script type="importmap">
+{ "imports": { "three": "./assets/three.module.js" } }
+</script>
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
